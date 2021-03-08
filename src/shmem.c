@@ -105,7 +105,8 @@ int shmem_write(shmem_t *shmem, void *data, size_t size)
 		if(!data) return -1;
 		if(shmem->id < 0) return -1;
 
-
+		if(size > shmem->memory_size) return -1;
+		
 		memcpy(shmem->memory, data, size);
 		return 0;
 }
