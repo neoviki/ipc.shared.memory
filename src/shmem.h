@@ -2,12 +2,12 @@
  * 
  * 			
  * 			Author	: Viki (a) Vignesh Natarajan
- *			Contact	: vikiworks.io
+ *			Contact	: neoviki.com
  */
 
 #ifndef SHMEM_H
 #define SHMEM_H 
-#define  __PROJ_ID__  100 /*Any non zero number. Can be any number*/
+#define  __APP_ID__  100 /*Can be any number greater than 0*/
 
 typedef struct{
 	int id;

@@ -28,7 +28,7 @@ shmem_t shmem_open(char *fname, size_t memory_size)
 
 		if( access( fname, F_OK ) != 0 ){
 				/*file doesn't exist, create*/
-				printf("notice: file doesn't exist, create file (%s)\n", fname);
+				printf("notice: file doesn't exist, creating file (%s)\n", fname);
 
 				fp  = fopen (fname, "w+");
 
@@ -40,7 +40,7 @@ shmem_t shmem_open(char *fname, size_t memory_size)
 				fclose(fp);
 		}
 
-		key = ftok(fname, __PROJ_ID__);
+		key = ftok(fname, __APP_ID__);
 		if (key == -1) {
 				printf("error: ftok \n");
 				shmem.id = -2;   

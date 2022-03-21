@@ -11,7 +11,7 @@ int main()
 {
     char *data = NULL;
     shmem_t shmem;
-    shmem = shmem_open("./test4.txt", 100);
+    shmem = shmem_open("/tmp/test4.txt", 100);
     if(shmem.id<0) return -1;
     while(1){
     	data = shmem_read(&shmem);

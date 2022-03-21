@@ -1,6 +1,6 @@
 ## C/C++ IPC Shared Memory API 
 
-The APIs are simplified version of Shared Memory to accelerate development time. 
+Simplified Shared memory Library. This library is a wrapper to System V shared memory.
 
 ## Source 
 
@@ -99,4 +99,7 @@ The APIs are simplified version of Shared Memory to accelerate development time.
 
 ## Example Usage
 
-	- example/example1
+	- example/example_nolock
+    - The example doesn't have any lock. It is the responsibility of the application programmer to use locks to synchronize shared resource.
+
+
