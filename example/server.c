@@ -7,13 +7,16 @@
 #include <unistd.h>
 #include "shmem.h"
 
+#define MEM_SIZE 100
 int main()
 {
-    char data[64]; 
+    char data[MEM_SIZE]; 
     int i = 0;
-    shmem_t shmem;
-    shmem = shmem_open("/tmp/test4.txt", 100);
-    if(shmem.id<0) return 0;
+    shmem_t *shmem;
+    shmem = shmem_open("/tmp/test4.txt", MEM_SIZE);
+
+    if(!shmem) return -1;
+
     while(1){
         i= (i+1)%100;
         printf("SERVER WRITE ( %d )\n", i);
@@ -21,7 +24,6 @@ int main()
         shmem_write(&shmem, data, sizeof(data));
         sleep(1);
     }
-    shmem_close(&shmem);
-    shmem_delete(&shmem); 
+    shmem_delete(&shmem);
     return 0;
 }

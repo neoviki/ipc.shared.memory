@@ -1,18 +1,20 @@
 ## C/C++ IPC Shared Memory API 
 
-Simplified Shared memory Library. This library is a wrapper to System V shared memory.
+Shared memory Library with internal read/write lock based on flock. 
+This library is based on System V shared memory.
 
 ## Source 
 
    - src/shmem.c
    - src/shmem.h
-
+   - src/ipc_flock.c
+   - src/ipc_flock.h
 
 ## APIs
 
 #####    Syntax:
 
-		shmem_t shmem_open(char *fname, size_t memory_size);
+		shmem_t *shmem_open(char *fname, size_t memory_size);
 
 #####    Description:
 	
@@ -25,12 +27,12 @@ Simplified Shared memory Library. This library is a wrapper to System V shared m
 
     memory_size : size of the shared memory.
 
-	return		: success : a valid (shmem_t).id > 0 and (shmem_t).memory != NULL
-				  failure : return (shmem_t).id < 0;
+	return		: success : memory address
+				  failure : NULL
 
 #####    Syntax:
 
-	int shmem_close(shmem_t *shmem);
+	int shmem_close(shmem_t **shmem);
 
 #####    Description:
 	
@@ -38,7 +40,7 @@ Simplified Shared memory Library. This library is a wrapper to System V shared m
 	
 #####	Arguments:
 
-	shmem		: feed the shared memory variable returned from shmem_open()
+	shmem		: feed the address of shared memory variable returned from shmem_open()
 
 	return		: success : 0
 				  failure : -1
@@ -46,7 +48,7 @@ Simplified Shared memory Library. This library is a wrapper to System V shared m
 
 #####    Syntax:
 
-	void *shmem_read(shmem_t *shmem);
+	void *shmem_read(shmem_t **shmem, void *data, size_t size);
 
 #####    Description:
 	
@@ -54,16 +56,21 @@ Simplified Shared memory Library. This library is a wrapper to System V shared m
 	
 #####	Arguments:
 
-	shmem		: feed the shared memory variable returned from shmem_open()
+	shmem		: feed the address of shared memory variable returned from shmem_open()
 
-	return		: success : Pointer to shared memory data
-				  failure : NULL
+	data		: pointer to a buffer where the contents of shared memory is copied. 
+
+	size 		: size of buffer ( size should be greater than or equal to shared memory size )
+
+
+	return		: success : 0
+				  failure : -1
 
 
 
 #####    Syntax:
 
-	int shmem_write(shmem_t *shmem, void *data, size_t size);
+	int shmem_write(shmem_t **shmem, void *data, size_t size);
 
 #####    Description:
 	
@@ -71,18 +78,18 @@ Simplified Shared memory Library. This library is a wrapper to System V shared m
 	
 #####	Arguments:
 
-	shmem		: feed the shared memory variable returned from shmem_open()
+	shmem		: feed the address of shared memory variable returned from shmem_open()
 
-	data		: pointer to data to be writted into shared memory
+	data		: pointer to buffer. The contents of the buffer will be copied to shared memory
 
-	size 		: size of data
+	size 		: size of buffer. ( The size should be less than or equal to shared memory size )
 
 	return		: success : 0
-				  failure : < 0
+				  failure : -1
 
 #####    Syntax:
 
-	int shmem_delete(shmem_t *shmem);	
+	int shmem_delete(shmem_t **shmem);	
 
 #####    Description:
 
@@ -99,7 +106,7 @@ Simplified Shared memory Library. This library is a wrapper to System V shared m
 
 ## Example Usage
 
-	- example/example_nolock
-    - The example doesn't have any lock. It is the responsibility of the application programmer to use locks to synchronize shared resource.
+	- example/client.c
+	- example/server.c
 
 
