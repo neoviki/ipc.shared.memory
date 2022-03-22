@@ -5,8 +5,8 @@
  *			Contact	: neoviki.com
  */
 
-#ifndef SHMEM_H
-#define SHMEM_H 
+#ifndef IPC_SHMEM_H
+#define IPC_SHMEM_H 
 #include "ipc_flock.h"
 #define  __APP_ID__  100 /*Can be any number greater than 0*/
 

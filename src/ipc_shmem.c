@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include "shmem.h"
+#include "ipc_shmem.h"
 
 shmem_t *shmem_open(char *fname, size_t memory_size)
 {
