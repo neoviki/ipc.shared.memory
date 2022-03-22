@@ -1,4 +1,4 @@
-/* Shared Memory Library	
+/* Shared Memory with Internal Read/Write Locks
  * 
  * 			
  * 			Author	: Viki (a) Vignesh Natarajan

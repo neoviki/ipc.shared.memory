@@ -102,11 +102,23 @@ This library is based on System V shared memory.
 				  failure : <0
 
 
-
-
 ## Example Usage
 
 	- example/client.c
 	- example/server.c
+
+## Synchronization and Mutual Exclusion
+
+This library uses flock to acheive exclusive access to the shared memory. More than one process can read/write to this memory without worrying about mutex and synchronization. 
+
+## Caution
+
+    1. With this library, 2 or more process can read/write to the shared memory safely.
+    2. The behaviour of this library between two threads of a same process is undefined. ( Use this library only between two/more processes )
+       [ In my openion, shared memory is not needed between 2 threads. You can use global variable with pthread_mutex_lock instead of shared memory ]
+
+
+
+
 
 
